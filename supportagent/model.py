@@ -12,6 +12,14 @@ class Model(nn.Module):
         self.to(self.device)
 
     def forward(self, sentences):
+        print(sentences)
         tokens = self.tokenizer(sentences, return_tensors='pt', padding=True).to(self.device)
         output = self.model(**tokens)
+        print(output)
+        next_token = torch.argmax(output.logits[:,-1,:], dim=-1)
+        print(next_token)
+
+if __name__ == "__main__":
+    m = Model()
+    m("this is a sentence")
 
